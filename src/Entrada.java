@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Entrada {
     /**
      * Classe com as rotinas de entrada e saída do projeto
-     * @author Hilario Seibel Junior e <seu nome aqui>
+     * @author Hilario Seibel Junior, Josias Neves Jardim Borba e Israel Magalhães
      */
 
     public Scanner input;
@@ -16,11 +16,12 @@ public class Entrada {
      * Se houver um arquivo input.txt, define que o Scanner vai ler deste arquivo.
      * Se o arquivo não existir, define que o Scanner vai ler da entrada padrão (teclado)
      */
+
     public Entrada() {
         try {
             // Se houver um arquivo input.txt na pasta corrente, o Scanner vai ler dele.
             this.input = new Scanner(new FileInputStream("input.txt")).useLocale(Locale.US);
-            // NAO ALTERE A LOCALICAÇÃO DO ARQUIVO!!
+            // NAO ALTERE A LOCALIZAÇÃO DO ARQUIVO!!
         } catch (FileNotFoundException e) {
             // Caso contrário, vai ler do teclado.
             this.input = new Scanner(System.in).useLocale(Locale.US);
@@ -33,6 +34,7 @@ public class Entrada {
      * @param msg: Mensagem que será exibida ao usuário
      * @return Uma String contendo a linha que foi lida
      */
+
     private String lerLinha(String msg) {
         // Imprime uma mensagem ao usuário, lê uma e retorna esta linha
         System.out.print(msg);
@@ -201,6 +203,61 @@ public class Entrada {
         System.out.println("Usuário " + a + " criado com sucesso.");
     }
 
+    /*
+    public void cadAluno(Sistema s){
+        // Implemente aqui o código para cadastrar um novo aluno
 
+    }
+
+    public void cadProduto(Sistema s){
+        // Implemente aqui o código para cadastrar um novo produto
+
+    }
+
+    public void cadSala(Sistema s){
+        // Implemente aqui o código para cadastrar uma nova sala
+
+    }
+
+
+
+     */
+
+    /***************************/
+    /** FUNCIONALIDADES ALUNO **/
+    /***************************/
+
+    /*
+    public void fazerPedido(Aluno a, Sistema s){
+        // Implemente aqui o código para fazer um novo pedido
+
+    }
+
+    public void entregarPedido(Aluno a, Sistema s){
+        // Implemente aqui o código para entregar um pedido
+
+    }
+
+    public void listarPedidos(Aluno a, Sistema s){
+        // Implemente aqui o código para listar os pedidos de um aluno
+
+    }
+
+    public void inserirCredito(Aluno a, Sistema s){
+        // Implemente aqui o código para inserir crédito em um aluno
+
+    }
+
+    private void lerSala(Sistema s){
+        // Implemente aqui o código para ler uma sala do sistema
+
+    }
+
+    private void lerItem(Sistema s){
+        // Implemente aqui o código para ler um item do sistema
+
+    }
+
+     */
 
 }

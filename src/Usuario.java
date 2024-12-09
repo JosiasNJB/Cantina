@@ -12,6 +12,17 @@ public class Usuario {
         return s.equals(this.senha);
     }
 
+    // Metodo para alterar a senha do usuário
+    // Retorna true se a senha foi alterada com sucesso, false caso contrário
+    public boolean alterarSenha(String senha_atual, String senha_nova) {
+        if (this.validarAcesso(senha_atual)) {
+            this.senha = senha_nova;
+            return true;
+        }
+        return false;
+    }
+
+
     public String toString() {
         return this.nome + " - CPF: " + this.cpf;
     }
