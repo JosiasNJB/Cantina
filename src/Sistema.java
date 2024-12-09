@@ -1,3 +1,4 @@
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class Sistema {
@@ -10,14 +11,30 @@ public class Sistema {
     public Sistema() {
         this.alunos = new ArrayList<>();
         this.adms = new ArrayList<>();
+        this.prods = new ArrayList<>();
+        this.pedidos = new ArrayList<>();
+        this.salas = new ArrayList<>();
+        // Inserir dados de teste
     }
 
     public void addAdmin(Admin a) {
         this.adms.add(a);
     }
 
-    public boolean sistemaVazio() {
-        return this.adms.size() == 0;
+    public void addAluno(Aluno a) {
+        this.alunos.add(a);
+    }
+
+    public void addProduto(Produto p) {
+        this.prods.add(p);
+    }
+
+    public void addPedido(Pedido p) {
+        this.pedidos.add(p);
+    }
+
+    public void addSala(Sala s) {
+        this.salas.add(s);
     }
 
     public Aluno getAluno(String cpf) {
@@ -36,4 +53,57 @@ public class Sistema {
         return null;
     }
 
+    /*** GETS ***/
+
+    /*
+
+    public Produto getProduto(String cod){
+
+    }
+
+    public Pedido getPedido(String cod){
+
+    }
+
+    public Sala getSala(String nome){
+
+    }
+
+
+     */
+
+    public boolean sistemaVazio() {
+        return this.adms.size() == 0;
+    }
+
+    /*
+    public String gerarCodigoProduto(){
+
+    }
+
+    public String gerarCodigoPedido(){
+
+    }
+
+    public void listarProdutos(){
+
+    }
+
+    public void listarSalas(){
+
+    }
+
+    public ArrayList<Pedidos> filtrarPedidos(Boolean disponivel){
+
+
+    }
+
+    public ArrayList<Pedidos> filtrarPedidos(Aluno a){
+
+
+    }
+
+
+
+     */
 }

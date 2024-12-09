@@ -248,12 +248,12 @@ public class Entrada {
 
     }
 
-    private void lerSala(Sistema s){
+    private Sala lerSala(Sistema s){
         // Implemente aqui o código para ler uma sala do sistema
 
     }
 
-    private void lerItem(Sistema s){
+    private Item lerItem(Sistema s){
         // Implemente aqui o código para ler um item do sistema
 
     }
