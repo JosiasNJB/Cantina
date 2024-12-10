@@ -7,15 +7,16 @@ public class Item {
         this.qtd = qtd;
     }
 
-    // UNFINISHED
+    // FINISHED
     public String toString() {
-        return "" + qtd;
+        return this.p + "(QTD: " + this.qtd + ")";
     }
 
-    // UNFINISHED
     public double valorTotal(){
-        return qtd * p.getValor();
+        return this.p.getValor() * this.qtd;
     }
+
+    /*** GETS AND SETS ***/
 
     public Produto getP() {
         return p;

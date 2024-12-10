@@ -19,6 +19,8 @@ public class Produto {
         this.qtd -= qtd;
     }
 
+    /*** GETS AND SETS ***/
+
     public String getCodigo() {
         return codigo;
     }

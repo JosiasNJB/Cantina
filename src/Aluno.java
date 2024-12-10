@@ -9,16 +9,22 @@ public class Aluno extends Usuario{
     public String toString() {
         return super.toString() + " (Saldo: R$" + String.format("%.2f", this.saldo) + ")";
     }
-
-    /*
+    // Implementar a lógica para adicionar saldo ao aluno.
     public void inserirSaldo(Double valor){
-        // Implementar a lógica para adicionar saldo ao aluno.
+
+        this.saldo += valor;
 
     }
-
+    // Implementar a lógica para remover saldo do aluno.
     public boolean retirarSaldo(Double valor){
-        // Implementar a lógica para remover saldo do aluno.
+
+        // Validar se o saldo é suficiente para retirar o valor.
+        if (this.saldo >= valor){
+            this.saldo -= valor;
+            return true;
+        }
+
+        return false;
 
     }
-     */
 }
