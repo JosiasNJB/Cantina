@@ -28,45 +28,6 @@ public class Entrada {
         }
     }
 
-    /**
-     * Faz a leitura de uma linha inteira
-     * Ignora linhas começando com #, que vão indicar comentários no arquivo de entrada:
-     * @param msg: Mensagem que será exibida ao usuário
-     * @return Uma String contendo a linha que foi lida
-     */
-
-    private String lerLinha(String msg) {
-        // Imprime uma mensagem ao usuário, lê uma e retorna esta linha
-        System.out.print(msg);
-        String linha = this.input.nextLine();
-
-        // Ignora linhas começando com #, que vão indicar comentários no arquivo de entrada:
-        while (linha.charAt(0) == '#') linha = this.input.nextLine();
-        return linha;
-    }
-
-    /**
-     * Faz a leitura de um número inteiro
-     * @param msg: Mensagem que será exibida ao usuário
-     * @return O número digitado pelo usuário convertido para int
-     */
-    private int lerInteiro(String msg) {
-        // Imprime uma mensagem ao usuário, lê uma linha contendo um inteiro e retorna este inteiro
-        String linha = this.lerLinha(msg);
-        return Integer.parseInt(linha);
-    }
-
-    /**
-     * Faz a leitura de um ponto flutuante
-     * @param msg: Mensagem que será exibida ao usuário
-     * @return O número digitado pelo usuário convertido para double
-     */
-    private double lerDouble(String msg) {
-        // Imprime uma mensagem ao usuário, lê uma linha contendo um ponto flutuante e retorna este número
-        String linha = this.lerLinha(msg);
-        return Double.parseDouble(linha);
-    }
-
     /**********************/
     /** MENUS DO SISTEMA **/
     /**********************/
@@ -178,6 +139,88 @@ public class Entrada {
     }
 
     /***************/
+    /*** LEITURA ***/
+    /***************/
+
+    private Sala lerSala(Sistema s){
+        // Implemente aqui o código para ler uma sala do sistema
+        System.out.println("Salas disponiveis:\n");
+        s.listarSalas();
+
+        String sala = this.lerLinha("Digite a sala:\n");
+
+        while (s.getSala(sala) == null) {
+            sala = this.lerLinha("Sala não existente. Tente novamente:\n");
+        }
+
+        return s.getSala(sala);
+
+    }
+
+    private Item lerItem(Sistema s){
+
+        // Implemente aqui o código para ler um item do sistema
+        System.out.println("Produtos disponiveis:\n");
+        s.listarProdutos();
+
+        String prod = this.lerLinha("Digite o codigo do produto:\n");
+
+        while (s.getProduto(prod) == null) {
+            prod = this.lerLinha("Codigo de Produto nao existente. Tente novamente:\n");
+        }
+
+        Produto p = s.getProduto(prod);
+
+        int qtd = this.lerInteiro("Digite a quantidade de " + p + " no pedido: ");
+
+        while (qtd > p.getQtd()) {
+            qtd = this.lerInteiro("Quantidade invalida. Maximo de " + p.getQtd() + "\nDisponiveis em estoque para " + p + " Tente novamente:\n");
+        }
+
+        return new Item(p, qtd);
+
+    }
+
+    /**
+     * Faz a leitura de uma linha inteira
+     * Ignora linhas começando com #, que vão indicar comentários no arquivo de entrada:
+     * @param msg: Mensagem que será exibida ao usuário
+     * @return Uma String contendo a linha que foi lida
+     */
+
+    private String lerLinha(String msg) {
+        // Imprime uma mensagem ao usuário, lê uma e retorna esta linha
+        System.out.print(msg);
+        String linha = this.input.nextLine();
+
+        // Ignora linhas começando com #, que vão indicar comentários no arquivo de entrada:
+        while (linha.charAt(0) == '#') linha = this.input.nextLine();
+        return linha;
+    }
+
+    /**
+     * Faz a leitura de um número inteiro
+     * @param msg: Mensagem que será exibida ao usuário
+     * @return O número digitado pelo usuário convertido para int
+     */
+    private int lerInteiro(String msg) {
+        // Imprime uma mensagem ao usuário, lê uma linha contendo um inteiro e retorna este inteiro
+        String linha = this.lerLinha(msg);
+        return Integer.parseInt(linha);
+    }
+
+    /**
+     * Faz a leitura de um ponto flutuante
+     * @param msg: Mensagem que será exibida ao usuário
+     * @return O número digitado pelo usuário convertido para double
+     */
+    private double lerDouble(String msg) {
+        // Imprime uma mensagem ao usuário, lê uma linha contendo um ponto flutuante e retorna este número
+        String linha = this.lerLinha(msg);
+        return Double.parseDouble(linha);
+    }
+
+    /***************/
     /** CADASTROS **/
     /***************/
 
@@ -203,31 +246,62 @@ public class Entrada {
         System.out.println("Usuário " + a + " criado com sucesso.");
     }
 
-    /*
     public void cadAluno(Sistema s){
         // Implemente aqui o código para cadastrar um novo aluno
+        System.out.println("\n** Cadastrando um novo aluno **\n");
+        String cpf = this.lerLinha("Digite o cpf: ");
+
+        while (s.getAluno(cpf) != null) {
+            cpf = this.lerLinha("Usuário já existente. Escolha outro cpf: ");
+        }
+
+        String nome = this.lerLinha("Digite o nome: ");
+        String senha = this.lerLinha("Digite a senha: ");
+
+        Aluno a = new Aluno(cpf, nome, senha);
+        s.addAluno(a);
+
+        System.out.println("Usuário " + a + " criado com sucesso.");
 
     }
 
     public void cadProduto(Sistema s){
         // Implemente aqui o código para cadastrar um novo produto
+        System.out.println("\n** Cadastrando um novo produto **\n");
+
+        String nome = this.lerLinha("Digite o nome do produto: ");
+        int qtd = this.lerInteiro("Digite a quantidade em estoque: ");
+        double valor = this.lerDouble("Digite o valor unitario do produto: ");
+
+        Produto p = new Produto(s.gerarCodigoProduto(), nome, qtd, valor);
+        s.addProduto(p);
+
+        System.out.println("Produto " + p + " criado com sucesso.");
 
     }
 
     public void cadSala(Sistema s){
         // Implemente aqui o código para cadastrar uma nova sala
+        System.out.println("\n** Cadastrando uma nova sala **\n");
+
+        String bloco = this.lerLinha("Digite o bloco (ex: para 904T, digite 9): ");
+        String sala = this.lerLinha("Digite a sala (ex: para 904T, digite 04): ");
+        String andar = this.lerLinha("Digite o andar (ex: para 904T, digite T): ");
+
+        Sala sl = new Sala(bloco, sala, andar);
+
+        s.addSala(sl);
+
+        System.out.println("Sala " + sl + " criada com sucesso.");
 
     }
 
-
-
-     */
 
     /***************************/
     /** FUNCIONALIDADES ALUNO **/
     /***************************/
 
-    /*
+
     public void fazerPedido(Aluno a, Sistema s){
         // Implemente aqui o código para fazer um novo pedido
 
@@ -248,16 +322,5 @@ public class Entrada {
 
     }
 
-    private Sala lerSala(Sistema s){
-        // Implemente aqui o código para ler uma sala do sistema
-
-    }
-
-    private Item lerItem(Sistema s){
-        // Implemente aqui o código para ler um item do sistema
-
-    }
-
-     */
 
 }
