@@ -2,6 +2,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Entrada {
     /**
@@ -304,22 +305,85 @@ public class Entrada {
 
     public void fazerPedido(Aluno a, Sistema s){
         // Implemente aqui o código para fazer um novo pedido
+        System.out.println("\n** Fazendo um novo Pedido **\n");
 
+        Sala sala = lerSala(s);
+        ArrayList<Item> carrinho = new ArrayList<>();
+
+        String msg = "\n*********************\n" +
+                "Escolha uma opçao:\n" +
+                "1) Adicionar item ao carrinho.\n" +
+                "2) Finalizar pedido.\n";
+
+        int op = this.lerInteiro(msg);
+
+        while (op != 2) {
+            if (op == 1) carrinho.add(this.lerItem(s));
+
+            else System.out.println("Opção invalida. Tente novamente: ");
+
+            op = this.lerInteiro(msg);
+
+        }
+        if (!carrinho.isEmpty()){
+            Pedido p = new Pedido(s.gerarCodigoPedido(), a, null, sala, carrinho);
+
+            if(a.getSaldo() >= p.valorTotal()){
+                p.confirmar();
+                s.addPedido(p);
+
+                System.out.println("Pedido " + p + " criado com sucesso.");
+
+            } else{
+                System.out.println("Saldo insuficiente para fazer este pedido.");
+
+            }
+        }
     }
 
     public void entregarPedido(Aluno a, Sistema s){
         // Implemente aqui o código para entregar um pedido
+        System.out.print("\n** Pedidos disponiveis para entrega: **\n");
+
+        ArrayList<Pedido> pedidos = s.filtrarPedidos(true);
+
+        for(Pedido pedido : pedidos){
+            System.out.println(pedido + "\n");
+
+        }
+
+        String cod = this.lerLinha("Digite o codigo do pedido: ");
+
+        while(s.getPedido(cod) == null){
+            cod = this.lerLinha("Codigo invalido. Tente novamente: \n");
+
+        }
+
+        Pedido p = s.getPedido(cod);
+
+        p.atribuirEntregador(a);
+        p.marcarComoEntregue();
 
     }
 
     public void listarPedidos(Aluno a, Sistema s){
         // Implemente aqui o código para listar os pedidos de um aluno
+        System.out.print("\n** Pedido de " + a + " **\n");
+
+        for (Pedido p : s.filtrarPedidos(a)) {
+            System.out.print(p + "\n");
+
+        }
 
     }
 
     public void inserirCredito(Aluno a, Sistema s){
         // Implemente aqui o código para inserir crédito em um aluno
+        System.out.print("\n** Inserindo saldo **\n");
 
+        double valor = this.lerDouble("Digite o valor a ser adicionado no saldo: ");
+
+        a.inserirSaldo(valor);
     }
 
 

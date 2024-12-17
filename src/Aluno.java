@@ -27,4 +27,14 @@ public class Aluno extends Usuario{
         return false;
 
     }
+
+    /*** GETS AND SETS ***/
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
 }
