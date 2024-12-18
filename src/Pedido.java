@@ -7,7 +7,7 @@ public class Pedido {
     private ArrayList<Item> carrinho;
     private Boolean entregue;
 
-    // FINISHED
+
     public Pedido(String cod, Aluno aluno, Aluno entregador, Sala sala, ArrayList<Item> carrinho) {
         this.cod = cod;
         this.cliente = aluno;
@@ -19,7 +19,7 @@ public class Pedido {
 
     }
 
-    // FINISHED? NEEDS TESTING
+
     public String toString() {
         String msg = "Codigo do Pedido: " + this.cod + "\nProdutos:\n";
 
@@ -36,17 +36,17 @@ public class Pedido {
         return msg;
     }
 
-    // FINISHED
+
     public void atribuirEntregador(Aluno aluno){
         this.entregador = aluno;
     }
 
-    // FINISHED
+
     public boolean disponivel() {
         return !(this.entregue);
     }
 
-    // FINISHED
+
     public double valorTotal() {
         double total = 1;
 
@@ -57,12 +57,12 @@ public class Pedido {
         return total;
     }
 
-    // FINISHED
+
     public void marcarComoEntregue(){
         this.entregue = true;
     }
 
-    // FINISHED? NEEDS TESTING
+
     public void confirmar(){
 
         //

@@ -77,9 +77,9 @@ public class Entrada {
 
         while (op != 0) {
             if (op == 1) cadAdmin(s);
-            if (op == 2) {/*cadAluno(s);*/}
-            if (op == 3) {/*cadProduto(s);*/}
-            if (op == 4) {/*cadSala(s);*/}
+            if (op == 2) {cadAluno(s);}
+            if (op == 3) {cadProduto(s);}
+            if (op == 4) {cadSala(s);}
             if (op < 0 || op > 4) System.out.println("Opção inválida. Tente novamente: ");
 
             op = this.lerInteiro(msg);
@@ -103,10 +103,10 @@ public class Entrada {
         int op = this.lerInteiro(msg);
 
         while (op != 0) {
-            if (op == 1) {/*fazerPedido(a, s);*/}
-            if (op == 2) {/*entregarPedido(a, s);*/}
-            if (op == 3) {/*listarPedidos(a, s);*/}
-            if (op == 4) {/*inserirCredito(a, s);*/}
+            if (op == 1) {fazerPedido(a, s);}
+            if (op == 2) {entregarPedido(a, s);}
+            if (op == 3) {listarPedidos(a, s);}
+            if (op == 4) {inserirCredito(a, s);}
             if (op < 0 || op > 4) System.out.println("Opção inválida. Tente novamente: ");
 
             op = this.lerInteiro(msg);
@@ -143,8 +143,8 @@ public class Entrada {
     /*** LEITURA ***/
     /***************/
 
+    // Metodo paa ler uma Sala do sistema e retornar uma Sala
     private Sala lerSala(Sistema s){
-        // Implemente aqui o código para ler uma sala do sistema
         System.out.println("Salas disponiveis:\n");
         s.listarSalas();
 
@@ -157,10 +157,8 @@ public class Entrada {
         return s.getSala(sala);
 
     }
-
+    // Metodo para ler um Item do sistema e retornar um Item
     private Item lerItem(Sistema s){
-
-        // Implemente aqui o código para ler um item do sistema
         System.out.println("Produtos disponiveis:\n");
         s.listarProdutos();
 
@@ -172,10 +170,10 @@ public class Entrada {
 
         Produto p = s.getProduto(prod);
 
-        int qtd = this.lerInteiro("Digite a quantidade de " + p + " no pedido: ");
+        int qtd = this.lerInteiro("Digite a quantidade de " + p + " no pedido: \n");
 
         while (qtd > p.getQtd()) {
-            qtd = this.lerInteiro("Quantidade invalida. Maximo de " + p.getQtd() + "\nDisponiveis em estoque para " + p + " Tente novamente:\n");
+            qtd = this.lerInteiro("Quantidade invalida.\nMaximo de " + p.getQtd() + " Disponiveis em estoque para " + p + " Tente novamente:\n");
         }
 
         return new Item(p, qtd);
@@ -231,15 +229,15 @@ public class Entrada {
      */
     public void cadAdmin(Sistema s) {
         System.out.println("\n** Cadastrando um novo administrador **\n");
-        String cpf = this.lerLinha("Digite o cpf: ");
+        String cpf = this.lerLinha("Digite o cpf: \n");
 
         while (s.getAdmin(cpf) != null) {
-            cpf = this.lerLinha("Usuário já existente. Escolha outro cpf: ");
+            cpf = this.lerLinha("Usuário já existente. Escolha outro cpf: \n");
         }
 
-        String nome = this.lerLinha("Digite o nome: ");
-        String senha = this.lerLinha("Digite a senha: ");
-        String email = this.lerLinha("Digite o email: ");
+        String nome = this.lerLinha("Digite o nome: \n");
+        String senha = this.lerLinha("Digite a senha: \n");
+        String email = this.lerLinha("Digite o email: \n");
 
         Admin a = new Admin(cpf, nome, senha, email);
         s.addAdmin(a);
@@ -247,53 +245,53 @@ public class Entrada {
         System.out.println("Usuário " + a + " criado com sucesso.");
     }
 
+    // Cadastrando um novo aluno
     public void cadAluno(Sistema s){
-        // Implemente aqui o código para cadastrar um novo aluno
         System.out.println("\n** Cadastrando um novo aluno **\n");
-        String cpf = this.lerLinha("Digite o cpf: ");
+        String cpf = this.lerLinha("Digite o cpf: \n");
 
         while (s.getAluno(cpf) != null) {
-            cpf = this.lerLinha("Usuário já existente. Escolha outro cpf: ");
+            cpf = this.lerLinha("Usuário já existente. Escolha outro cpf: \n");
         }
 
-        String nome = this.lerLinha("Digite o nome: ");
-        String senha = this.lerLinha("Digite a senha: ");
+        String nome = this.lerLinha("Digite o nome: \n");
+        String senha = this.lerLinha("Digite a senha: \n");
 
         Aluno a = new Aluno(cpf, nome, senha);
         s.addAluno(a);
 
-        System.out.println("Usuário " + a + " criado com sucesso.");
+        System.out.println("Usuário " + a + " criado com sucesso.\n");
 
     }
 
+    // Cadastrando um novo produto
     public void cadProduto(Sistema s){
-        // Implemente aqui o código para cadastrar um novo produto
         System.out.println("\n** Cadastrando um novo produto **\n");
 
-        String nome = this.lerLinha("Digite o nome do produto: ");
-        int qtd = this.lerInteiro("Digite a quantidade em estoque: ");
-        double valor = this.lerDouble("Digite o valor unitario do produto: ");
+        String nome = this.lerLinha("Digite o nome do produto: \n");
+        int qtd = this.lerInteiro("Digite a quantidade em estoque: \n");
+        double valor = this.lerDouble("Digite o valor unitario do produto: \n");
 
         Produto p = new Produto(s.gerarCodigoProduto(), nome, qtd, valor);
         s.addProduto(p);
 
-        System.out.println("Produto " + p + " criado com sucesso.");
+        System.out.println("Produto " + p + " criado com sucesso.\n");
 
     }
 
+    // Cadastrando uma nova sala
     public void cadSala(Sistema s){
-        // Implemente aqui o código para cadastrar uma nova sala
         System.out.println("\n** Cadastrando uma nova sala **\n");
 
-        String bloco = this.lerLinha("Digite o bloco (ex: para 904T, digite 9): ");
-        String sala = this.lerLinha("Digite a sala (ex: para 904T, digite 04): ");
-        String andar = this.lerLinha("Digite o andar (ex: para 904T, digite T): ");
+        String bloco = this.lerLinha("Digite o bloco (ex: para 904T, digite 9): \n");
+        String sala = this.lerLinha("Digite a sala (ex: para 904T, digite 04): \n");
+        String andar = this.lerLinha("Digite o andar (ex: para 904T, digite T): \n");
 
         Sala sl = new Sala(bloco, sala, andar);
 
         s.addSala(sl);
 
-        System.out.println("Sala " + sl + " criada com sucesso.");
+        System.out.println("Sala " + sl + " criada com sucesso.\n");
 
     }
 
@@ -302,9 +300,8 @@ public class Entrada {
     /** FUNCIONALIDADES ALUNO **/
     /***************************/
 
-
+    // Realizando um novo pedido
     public void fazerPedido(Aluno a, Sistema s){
-        // Implemente aqui o código para fazer um novo pedido
         System.out.println("\n** Fazendo um novo Pedido **\n");
 
         Sala sala = lerSala(s);
@@ -320,7 +317,7 @@ public class Entrada {
         while (op != 2) {
             if (op == 1) carrinho.add(this.lerItem(s));
 
-            else System.out.println("Opção invalida. Tente novamente: ");
+            else System.out.println("Opção invalida. Tente novamente: \n");
 
             op = this.lerInteiro(msg);
 
@@ -332,17 +329,17 @@ public class Entrada {
                 p.confirmar();
                 s.addPedido(p);
 
-                System.out.println("Pedido " + p + " criado com sucesso.");
+                System.out.println("Pedido " + p + " criado com sucesso.\n");
 
             } else{
-                System.out.println("Saldo insuficiente para fazer este pedido.");
+                System.out.println("Saldo insuficiente para fazer este pedido.\n");
 
             }
         }
     }
 
+    // Atribuindo aluno entregador e realizando a entrega
     public void entregarPedido(Aluno a, Sistema s){
-        // Implemente aqui o código para entregar um pedido
         System.out.print("\n** Pedidos disponiveis para entrega: **\n");
 
         ArrayList<Pedido> pedidos = s.filtrarPedidos(true);
@@ -352,7 +349,7 @@ public class Entrada {
 
         }
 
-        String cod = this.lerLinha("Digite o codigo do pedido: ");
+        String cod = this.lerLinha("Digite o codigo do pedido: \n");
 
         while(s.getPedido(cod) == null){
             cod = this.lerLinha("Codigo invalido. Tente novamente: \n");
@@ -365,9 +362,8 @@ public class Entrada {
         p.marcarComoEntregue();
 
     }
-
+    // Listando os pedidos de um aluno especifico
     public void listarPedidos(Aluno a, Sistema s){
-        // Implemente aqui o código para listar os pedidos de um aluno
         System.out.print("\n** Pedido de " + a + " **\n");
 
         for (Pedido p : s.filtrarPedidos(a)) {
@@ -376,12 +372,11 @@ public class Entrada {
         }
 
     }
-
+    // Inserindo credito na conta do aluno
     public void inserirCredito(Aluno a, Sistema s){
-        // Implemente aqui o código para inserir crédito em um aluno
         System.out.print("\n** Inserindo saldo **\n");
 
-        double valor = this.lerDouble("Digite o valor a ser adicionado no saldo: ");
+        double valor = this.lerDouble("Digite o valor a ser adicionado no saldo: \n");
 
         a.inserirSaldo(valor);
     }

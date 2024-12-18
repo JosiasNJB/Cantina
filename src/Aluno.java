@@ -1,4 +1,4 @@
-public class Aluno extends Usuario{
+public class Aluno extends Usuario {
     private double saldo;
 
     public Aluno(String cpf, String nome, String senha) {

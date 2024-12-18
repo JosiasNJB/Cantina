@@ -3,7 +3,6 @@ public class Sala {
     private String sala;
     private String andar;
 
-    // FINISHED
     public Sala(String bloco, String sala, String andar) {
         this.bloco = bloco;
         this.sala = sala;

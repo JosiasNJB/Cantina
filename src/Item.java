@@ -7,7 +7,6 @@ public class Item {
         this.qtd = qtd;
     }
 
-    // FINISHED
     public String toString() {
         return this.p + "(QTD: " + this.qtd + ")";
     }

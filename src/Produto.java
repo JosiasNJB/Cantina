@@ -3,7 +3,6 @@ public class Produto {
     private int qtd;
     private double valor;
 
-    // Construtor com todos os atributos
     public Produto(String codigo, String nome, int qtd, double valor){
         this.codigo = codigo;
         this.nome = nome;
