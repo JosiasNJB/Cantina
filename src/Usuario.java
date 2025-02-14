@@ -30,4 +30,6 @@ public class Usuario {
     public String getCPF() {
         return this.cpf;
     }
+
+    public String getSenha() {return this.senha; }
 }

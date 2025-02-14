@@ -1,4 +1,9 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Sistema {
 
@@ -15,6 +20,72 @@ public class Sistema {
         this.prods = new ArrayList<>();
         this.pedidos = new ArrayList<>();
         this.salas = new ArrayList<>();
+
+        lerDados();
+    }
+    /********************************/
+    /** LEITURA E ESCRITA DE DADOS **/
+    /********************************/
+
+    public void lerDados(){
+        try{
+            FileReader fr = new FileReader("dados.txt");
+            BufferedReader br = new BufferedReader(fr);
+
+            while (true){
+                String line = br.readLine();
+
+                if (line.equals("ADM")){
+                    String cpf = br.readLine();
+                    String nome = br.readLine();
+                    String senha = br.readLine();
+                    String email = br.readLine();
+
+                    Admin adm = new Admin(cpf, nome, senha, email);
+                    addAdmin(adm);
+
+                } else if (line.equals("ALU")){
+                    String cpf = br.readLine();
+                    String nome = br.readLine();
+                    String senha = br.readLine();
+
+                    Aluno aluno = new Aluno(cpf, nome, senha);
+                    addAluno(aluno);
+
+                } else{break;}
+
+            }
+            fr.close();
+
+        } catch(FileNotFoundException e){
+            System.out.println("File not found");
+
+        } catch(Exception e){
+            System.out.println("Erro ao ler dados: " + e.getMessage());
+
+        }
+    }
+
+    public void escreverDados(){
+        try{
+            System.out.println("** Salvando os dados do sistema **");
+            FileWriter fw =new FileWriter("dados.txt");
+
+            for (Admin adm : this.adms){
+                adm.saveArq(fw);
+            }
+            for (Aluno aluno : this.alunos){
+                aluno.saveArq(fw);
+            }
+
+            fw.close();
+
+        } catch(FileNotFoundException e){
+            System.out.println("File not found");
+
+        } catch(Exception e){
+            System.out.println("Erro ao ler dados: " + e.getMessage());
+        }
     }
 
     // Verifica se o sistema não possui administradores
@@ -56,13 +127,32 @@ public class Sistema {
     }
 
     // Filtra os pedidos associados a um aluno especifico
+
     public ArrayList<Pedido> filtrarPedidos(Aluno a){
         ArrayList<Pedido> pedidos_filtrados = new ArrayList<>();
         for(Pedido p : this.pedidos){
             if(p.getCliente().equals(a)) pedidos_filtrados.add(p);
+
         }
+
+        pedidos_filtrados.sort(this::compararPedidos);
+
         return pedidos_filtrados;
     }
+
+    private int compararPedidos(Pedido p1, Pedido p2) {
+        // Primeira comparacao - quantidade de produtos diferentes (maior para menor)
+        int cmp = Integer.compare(p2.getCarrinho().size(), p1.getCarrinho().size());
+
+        // Se a quantidade de produtos for igual, compara pelo valor total (maior para menor)
+        if (cmp == 0) {
+            // Segunda comparacao - valor total dos pedidos (maior para menor)
+            cmp = Double.compare(p2.valorTotal(), p1.valorTotal());
+        }
+
+        return cmp;
+    }
+
 
     // Adiciona um novo administrador
     public void addAdmin(Admin a) {

@@ -1,4 +1,7 @@
-public class Admin extends Usuario {
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Admin extends Usuario implements Salvavel{
     private String email;
 
     public Admin(String cpf, String nome, String senha, String email) {
@@ -12,6 +15,14 @@ public class Admin extends Usuario {
 
     public String toString() {
         return super.toString() + " (ADMIN)";
+    }
+
+    public void saveArq(FileWriter fw) throws IOException {
+        fw.write("ADM\n");
+        fw.write(this.cpf + "\n");
+        fw.write(this.nome + "\n");
+        fw.write(this.email + "\n");
+        fw.write(this.getSenha() + "\n");
     }
 
 }

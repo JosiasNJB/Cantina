@@ -1,4 +1,7 @@
-public class Aluno extends Usuario {
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Aluno extends Usuario implements Salvavel{
     private double saldo;
 
     public Aluno(String cpf, String nome, String senha) {
@@ -27,7 +30,12 @@ public class Aluno extends Usuario {
         return false;
 
     }
-
+    public void saveArq(FileWriter fw) throws IOException {
+        fw.write("ALU\n");
+        fw.write(this.cpf + "\n");
+        fw.write(this.nome + "\n");
+        fw.write(this.getSenha() + "\n");
+    }
     /*** GETS AND SETS ***/
 
     public double getSaldo() {

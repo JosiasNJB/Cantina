@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Entrada {
     /**
@@ -21,7 +24,7 @@ public class Entrada {
     public Entrada() {
         try {
             // Se houver um arquivo input.txt na pasta corrente, o Scanner vai ler dele.
-            this.input = new Scanner(new FileInputStream("input.txt")).useLocale(Locale.US);
+            this.input = new Scanner(new FileInputStream("entrada.txt")).useLocale(Locale.US);
             // NAO ALTERE A LOCALIZAÇÃO DO ARQUIVO!!
         } catch (FileNotFoundException e) {
             // Caso contrário, vai ler do teclado.
@@ -295,7 +298,6 @@ public class Entrada {
 
     }
 
-
     /***************************/
     /** FUNCIONALIDADES ALUNO **/
     /***************************/
@@ -364,7 +366,7 @@ public class Entrada {
     }
     // Listando os pedidos de um aluno especifico
     public void listarPedidos(Aluno a, Sistema s){
-        System.out.print("\n** Pedido de " + a + " **\n");
+        System.out.print("\nPedidos de " + a + " **\n");
 
         for (Pedido p : s.filtrarPedidos(a)) {
             System.out.print(p + "\n");
