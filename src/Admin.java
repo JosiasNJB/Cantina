@@ -1,7 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Admin extends Usuario implements Salvavel{
+public class Admin extends Usuario implements ISalvavel {
     private String email;
 
     public Admin(String cpf, String nome, String senha, String email) {

@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.io.FileWriter;
 
-public interface Salvavel {
+public interface ISalvavel {
     public abstract void saveArq(FileWriter fw) throws IOException;
 }

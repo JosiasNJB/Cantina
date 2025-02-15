@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Pedido {
+public class Pedido implements ITwoString {
     private String cod;
     private Aluno cliente, entregador;
     private Sala sala;

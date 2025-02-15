@@ -367,10 +367,12 @@ public class Entrada {
     // Listando os pedidos de um aluno especifico
     public void listarPedidos(Aluno a, Sistema s){
         System.out.print("\nPedidos de " + a + " **\n");
+        System.out.println("*");
 
         for (Pedido p : s.filtrarPedidos(a)) {
-            System.out.print(p + "\n");
+            System.out.print(p);
 
+            System.out.println("*");
         }
 
     }

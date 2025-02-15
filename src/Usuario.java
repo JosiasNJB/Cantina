@@ -1,4 +1,4 @@
-public class Usuario {
+public abstract class Usuario implements ITwoString {
     protected String cpf, nome;
     private String senha;
 

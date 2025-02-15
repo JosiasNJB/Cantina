@@ -1,4 +1,4 @@
-public class Sala {
+public class Sala implements ITwoString {
     private String bloco;
     private String sala;
     private String andar;

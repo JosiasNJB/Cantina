@@ -1,4 +1,4 @@
-public class Produto {
+public class Produto implements ITwoString {
     private String codigo, nome;
     private int qtd;
     private double valor;

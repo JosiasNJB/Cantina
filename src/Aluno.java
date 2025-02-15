@@ -1,7 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Aluno extends Usuario implements Salvavel{
+public class Aluno extends Usuario implements ISalvavel {
     private double saldo;
 
     public Aluno(String cpf, String nome, String senha) {
