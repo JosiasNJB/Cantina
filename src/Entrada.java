@@ -146,8 +146,9 @@ public class Entrada {
     /*** LEITURA ***/
     /***************/
 
-    // Metodo paa ler uma Sala do sistema e retornar uma Sala
-    private Sala lerSala(Sistema s){
+// Metodo para ler uma Sala do sistema e retornar uma Sala
+private Sala lerSala(Sistema s) {
+    try {
         System.out.println("Salas disponiveis:\n");
         s.listarSalas();
 
@@ -158,30 +159,36 @@ public class Entrada {
         }
 
         return s.getSala(sala);
-
+    } catch (Exception e) {
+        System.out.println("Erro ao ler sala: " + e.getMessage());
+        return null;
     }
-    // Metodo para ler um Item do sistema e retornar um Item
-    private Item lerItem(Sistema s){
-        System.out.println("Produtos disponiveis:\n");
-        s.listarProdutos();
+}
+// Metodo para ler um Item do sistema e retornar um Item
+private Item lerItem(Sistema s) {
+    System.out.println("Produtos disponiveis:\n");
+    s.listarProdutos();
 
-        String prod = this.lerLinha("Digite o codigo do produto:\n");
+    String prod = this.lerLinha("Digite o codigo do produto:\n");
 
-        while (s.getProduto(prod) == null) {
-            prod = this.lerLinha("Codigo de Produto nao existente. Tente novamente:\n");
-        }
+    while (s.getProduto(prod) == null) {
+        prod = this.lerLinha("Codigo de Produto nao existente. Tente novamente:\n");
+    }
 
-        Produto p = s.getProduto(prod);
+    Produto p = s.getProduto(prod);
 
-        int qtd = this.lerInteiro("Digite a quantidade de " + p + " no pedido: \n");
-
+    int qtd = 0;
+    try {
+        qtd = this.lerInteiro("Digite a quantidade de " + p + " no pedido: \n");
         while (qtd > p.getQtd()) {
             qtd = this.lerInteiro("Quantidade invalida.\nMaximo de " + p.getQtd() + " Disponiveis em estoque para " + p + " Tente novamente:\n");
         }
-
-        return new Item(p, qtd);
-
+    } catch (NumberFormatException e) {
+        System.out.println("Entrada inválida. Por favor, digite um número inteiro.");
     }
+
+    return new Item(p, qtd);
+}
 
     /**
      * Faz a leitura de uma linha inteira
@@ -190,37 +197,51 @@ public class Entrada {
      * @return Uma String contendo a linha que foi lida
      */
 
-    private String lerLinha(String msg) {
-        // Imprime uma mensagem ao usuário, lê uma e retorna esta linha
-        System.out.print(msg);
-        String linha = this.input.nextLine();
+private String lerLinha(String msg) {
+    // Imprime uma mensagem ao usuário, lê uma e retorna esta linha
+    System.out.print(msg);
+    String linha = this.input.nextLine();
 
+    try {
         // Ignora linhas começando com #, que vão indicar comentários no arquivo de entrada:
         while (linha.charAt(0) == '#') linha = this.input.nextLine();
-        return linha;
+    } catch (StringIndexOutOfBoundsException e) {
+        System.out.println("Linha vazia ou inválida. Tente novamente.");
+        return lerLinha(msg);
     }
+    return linha;
+}
 
     /**
      * Faz a leitura de um número inteiro
      * @param msg: Mensagem que será exibida ao usuário
      * @return O número digitado pelo usuário convertido para int
      */
-    private int lerInteiro(String msg) {
-        // Imprime uma mensagem ao usuário, lê uma linha contendo um inteiro e retorna este inteiro
-        String linha = this.lerLinha(msg);
+private int lerInteiro(String msg) {
+    // Imprime uma mensagem ao usuário, lê uma linha contendo um inteiro e retorna este inteiro
+    String linha = this.lerLinha(msg);
+    try {
         return Integer.parseInt(linha);
+    } catch (NumberFormatException e) {
+        System.out.println("Entrada inválida. Por favor, digite um número inteiro.");
+        return lerInteiro(msg); // Tenta ler novamente
     }
-
+}
     /**
      * Faz a leitura de um ponto flutuante
      * @param msg: Mensagem que será exibida ao usuário
      * @return O número digitado pelo usuário convertido para double
      */
-    private double lerDouble(String msg) {
-        // Imprime uma mensagem ao usuário, lê uma linha contendo um ponto flutuante e retorna este número
-        String linha = this.lerLinha(msg);
+private double lerDouble(String msg) {
+    // Imprime uma mensagem ao usuário, lê uma linha contendo um ponto flutuante e retorna este número
+    String linha = this.lerLinha(msg);
+    try {
         return Double.parseDouble(linha);
+    } catch (NumberFormatException e) {
+        System.out.println("Entrada inválida. Por favor, digite um número decimal.");
+        return lerDouble(msg); // Tenta ler novamente
     }
+}
 
     /***************/
     /** CADASTROS **/
@@ -230,7 +251,8 @@ public class Entrada {
      * Lê os dados de um novo administrador e cadastra-a no sistema.
      * @param s: Um objeto da classe Sistema
      */
-    public void cadAdmin(Sistema s) {
+public void cadAdmin(Sistema s) {
+    try {
         System.out.println("\n** Cadastrando um novo administrador **\n");
         String cpf = this.lerLinha("Digite o cpf: \n");
 
@@ -246,10 +268,11 @@ public class Entrada {
         s.addAdmin(a);
 
         System.out.println("Usuário " + a + " criado com sucesso.");
+    } catch (Exception e) {
+        System.out.println("Erro ao cadastrar administrador: " + e.getMessage());
     }
-
-    // Cadastrando um novo aluno
-    public void cadAluno(Sistema s){
+}public void cadAluno(Sistema s) {
+    try {
         System.out.println("\n** Cadastrando um novo aluno **\n");
         String cpf = this.lerLinha("Digite o cpf: \n");
 
@@ -264,11 +287,11 @@ public class Entrada {
         s.addAluno(a);
 
         System.out.println("Usuário " + a + " criado com sucesso.\n");
-
+    } catch (Exception e) {
+        System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
     }
-
-    // Cadastrando um novo produto
-    public void cadProduto(Sistema s){
+}public void cadProduto(Sistema s) {
+    try {
         System.out.println("\n** Cadastrando um novo produto **\n");
 
         String nome = this.lerLinha("Digite o nome do produto: \n");
@@ -279,8 +302,10 @@ public class Entrada {
         s.addProduto(p);
 
         System.out.println("Produto " + p + " criado com sucesso.\n");
-
+    } catch (Exception e) {
+        System.out.println("Erro ao cadastrar produto: " + e.getMessage());
     }
+}
 
     // Cadastrando uma nova sala
     public void cadSala(Sistema s){
@@ -302,8 +327,9 @@ public class Entrada {
     /** FUNCIONALIDADES ALUNO **/
     /***************************/
 
-    // Realizando um novo pedido
-    public void fazerPedido(Aluno a, Sistema s){
+// Realizando um novo pedido
+public void fazerPedido(Aluno a, Sistema s){
+    try {
         System.out.println("\n** Fazendo um novo Pedido **\n");
 
         Sala sala = lerSala(s);
@@ -318,12 +344,11 @@ public class Entrada {
 
         while (op != 2) {
             if (op == 1) carrinho.add(this.lerItem(s));
-
             else System.out.println("Opção invalida. Tente novamente: \n");
 
             op = this.lerInteiro(msg);
-
         }
+
         if (!carrinho.isEmpty()){
             Pedido p = new Pedido(s.gerarCodigoPedido(), a, null, sala, carrinho);
 
@@ -332,13 +357,14 @@ public class Entrada {
                 s.addPedido(p);
 
                 System.out.println("Pedido " + p + " criado com sucesso.\n");
-
-            } else{
+            } else {
                 System.out.println("Saldo insuficiente para fazer este pedido.\n");
-
             }
         }
+    } catch (Exception e) {
+        System.out.println("Erro ao fazer pedido: " + e.getMessage());
     }
+}
 
     // Atribuindo aluno entregador e realizando a entrega
     public void entregarPedido(Aluno a, Sistema s){
